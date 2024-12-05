@@ -33,7 +33,7 @@ fn process(path: String) -> Result<Vec<Vec<String>>, Box<dyn Error>> {
 pub fn part1() -> Result<(), Box<dyn Error>> {
     let mut diffs: std::vec::Vec<i32> = Vec::new();
 
-    let input = process("src/data/input.txt".to_string());
+    let input = process("src/data/day1.txt".to_string());
 
     // Zip together
     let binding = input.unwrap();
@@ -55,7 +55,7 @@ pub fn part1() -> Result<(), Box<dyn Error>> {
 // Part 2
 
 pub fn part2() -> Result<(), Box<dyn Error>> {
-    let input = process("src/data/input.txt".to_string());
+    let input = process("src/data/day1.txt".to_string());
     let binding = input.unwrap();
     let mut frequencies = Vec::new();
 
