@@ -7,4 +7,5 @@ fn main() {
     let _ = day1::part2();
     println!("\nDay 2\n-----\n");
     day2::part1();
+    day2::part2();
 }

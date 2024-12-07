@@ -5,7 +5,7 @@ use ::std::fs;
 fn process(path: String) -> Result<Vec<Vec<String>>, Box<dyn Error>> {
     let mut result = Vec::new();
     let input: String = fs::read_to_string(path)?;
-    // println!("{}", input);
+
     let mut list_a = Vec::new();
     let mut list_b = Vec::new();
 
