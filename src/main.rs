@@ -12,4 +12,5 @@ fn main() {
     println!("\nDay 3\n-----\n");
     day3::part1();
     day3::part2();
+    day3::part2_edit();
 }
