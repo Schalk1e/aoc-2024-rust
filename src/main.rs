@@ -1,6 +1,7 @@
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 
 fn main() {
     println!("\nDay 1\n-----\n");
@@ -13,4 +14,6 @@ fn main() {
     day3::part1();
     day3::part2();
     day3::part2_edit();
+    println!("\nDay 4\n-----\n");
+    day4::part1();
 }
