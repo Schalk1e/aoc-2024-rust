@@ -19,6 +19,21 @@ fn get_rules(path: String) -> Result<Vec<Vec<i32>>, Box<dyn Error>> {
     Ok(rules)
 }
 
+fn get_updates(path: String) -> Result<Vec<Vec<i32>>, Box<dyn Error>> {
+    let input = fs::read_to_string(path)?;
+    let mut updates = Vec::new();
+
+    for line in input.lines() {
+        let update = line
+            .split(",")
+            .map(str::parse::<i32>)
+            .collect::<Result<Vec<_>, _>>()?;
+        updates.push(update);
+    }
+
+    Ok(updates)
+}
+
 fn compute_in_degrees(edges: Vec<Vec<i32>>) -> HashMap<i32, i32> {
     let mut in_degrees = HashMap::new();
 
@@ -57,7 +72,19 @@ fn find_neighbours(pairs: &[Vec<i32>], node: i32) -> Vec<i32> {
         .collect()
 }
 
-fn sort_rules(pairs: Vec<Vec<i32>>) {
+fn get_value_to_sum(mut sorted_values: Vec<i32>, update: Vec<i32>) -> i32 {
+    for page in &update {
+        if let Some(pos) = sorted_values.iter().position(|&x| x == *page) {
+            sorted_values.drain(..=pos);
+        } else {
+            return 0;
+        }
+    }
+
+    update[update.len() / 2]
+}
+
+fn sort_rules(pairs: Vec<Vec<i32>>) -> Vec<i32> {
     // Need to build single ordered list from order rules.
     // This is the same as finding a topological ordering of a directed acyclical graph.
     // This can be done using Kahn's algorithm
@@ -72,6 +99,8 @@ fn sort_rules(pairs: Vec<Vec<i32>>) {
         // VecDequeue's have push_back and pop_front for FIFO operations.
         q.push_back(node)
     }
+
+    // println!("Zero in-degree nodes: {:?}", q);
 
     while !q.is_empty() {
         // Pop key off queue
@@ -91,11 +120,60 @@ fn sort_rules(pairs: Vec<Vec<i32>>) {
         }
     }
 
-    println!("{:?}", sorted);
+    sorted
 }
 
-pub fn part1() {
-    let rules = get_rules("src/data/day5_rules.txt".to_string());
+fn filter_rules(updates: &[i32], rules: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    let mut filtered_rules: Vec<Vec<i32>> = Vec::new();
+    for rule in rules {
+        if updates.contains(&rule[0]) && updates.contains(&rule[1]) {
+            filtered_rules.push(rule.to_vec());
+        }
+    }
 
-    sort_rules(rules.expect("REASON"));
+    filtered_rules
+}
+
+// Rust doesn't support default args... Interesting.
+pub fn part1(no_print: bool) -> i32 {
+    let rules = get_rules("src/data/day5_rules.txt".to_string()).expect("REASON");
+    let updates = get_updates("src/data/day5_updates.txt".to_string());
+    let mut values_to_sum: Vec<i32> = Vec::new();
+
+    for u in updates.unwrap() {
+        // Need to only keep rules that have members in the updates..
+        let filtered_rules = filter_rules(&u, &rules);
+        let sorted_rules = sort_rules(filtered_rules);
+
+        values_to_sum.push(get_value_to_sum(sorted_rules.clone(), u));
+    }
+
+    let result: i32 = values_to_sum.iter().sum();
+
+    if !no_print {
+        println!("{:?}", result);
+    }
+
+    result
+}
+
+pub fn part2() {
+    let rules = get_rules("src/data/day5_rules.txt".to_string()).expect("REASON");
+    let updates = get_updates("src/data/day5_updates.txt".to_string());
+    let mut values_to_sum: Vec<i32> = Vec::new();
+
+    for u in updates.unwrap() {
+        // Need to only keep rules that have members in the updates..
+        let filtered_rules = filter_rules(&u, &rules);
+        let sorted_rules = sort_rules(filtered_rules);
+
+        let index_value = sorted_rules[sorted_rules.len() / 2];
+
+        values_to_sum.push(index_value);
+    }
+
+    let result: i32 = values_to_sum.iter().sum();
+    let part1: i32 = part1(true);
+
+    println!("{:?}", result - part1);
 }
