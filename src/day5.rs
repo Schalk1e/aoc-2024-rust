@@ -151,7 +151,7 @@ pub fn part1(no_print: bool) -> i32 {
     let result: i32 = values_to_sum.iter().sum();
 
     if !no_print {
-        println!("{:?}", result);
+        println!("Part 1: {:?}", result);
     }
 
     result
@@ -175,5 +175,5 @@ pub fn part2() {
     let result: i32 = values_to_sum.iter().sum();
     let part1: i32 = part1(true);
 
-    println!("{:?}", result - part1);
+    println!("Part 2: {:?}", result - part1);
 }
