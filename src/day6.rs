@@ -101,6 +101,26 @@ fn unique_positions(positions: Vec<(usize, usize)>) -> i32 {
     unique_positions.len().try_into().unwrap()
 }
 
+fn next_position(position: (usize, usize), dimension: (usize, usize)) -> (usize, usize) {
+    if position.0 < dimension.0 {
+        (position.0, position.1 + 1)
+    } else {
+        (position.0 + 1, position.1)
+    }
+}
+
+struct Map {
+    map: Vec<String>,
+    position: (usize, usize),
+    dimension: (usize, usize),
+}
+
+impl Iterator for Map {
+    type Item = Vec<String>;
+
+    fn next(&mut self) -> Option<Self::Item> {}
+}
+
 pub fn part1() {
     let map = get_map("src/data/day6.txt".to_string()).expect("REASON");
     let initial_conditions = find_init_conditions(map.clone()).unwrap();
@@ -118,4 +138,38 @@ pub fn part1() {
     positions.push(initial_conditions.1);
 
     println!("Part 1: {:?}", unique_positions(positions));
+}
+
+pub fn part2() {
+    let map = get_map("src/data/day6.txt".to_string()).expect("REASON");
+    let obstacles: Vec<i32> = Vec::new();
+
+    let maps = Map {
+        map: map,
+        init: (0, 0),
+    };
+
+    for m in maps {
+        let initial_conditions = find_init_conditions(m);
+        let g = Guard {
+            orientation: initial_conditions.0,
+            position: initial_conditions.1,
+            map,
+        };
+
+        for guard_position in g {
+            // If we reach the same position and orientation, we know we are in a loop.
+            // If this is discovered, break out of loop over positions into loop for next map.
+            if guard_position.orientation =
+                initial_conditions.0 && guard_position.position = initial_conditions.1
+            {
+                obstacles.push(1);
+                break;
+            }
+        }
+    }
+
+    let result: i32 = obstacles.iter().sum();
+
+    println!("Part 2: {:?}", result);
 }
