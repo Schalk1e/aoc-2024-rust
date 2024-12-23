@@ -105,7 +105,7 @@ fn next_position(position: (usize, usize), dimension: (usize, usize)) -> (usize,
     if position.0 < dimension.0 {
         (position.0, position.1 + 1)
     } else {
-        (position.0 + 1, position.1)
+        (position.0 + 1, 0)
     }
 }
 
@@ -118,7 +118,25 @@ struct Map {
 impl Iterator for Map {
     type Item = Vec<String>;
 
-    fn next(&mut self) -> Option<Self::Item> {}
+    fn next(&mut self) -> Option<Self::Item> {
+        loop {
+            let next_position = next_position(self.position, self.dimension);
+            self.position = next_position;
+            if self.map[self.position.0]
+                .chars()
+                .nth(self.position.1)
+                .unwrap()
+                == '.'
+            {
+                let mut modified_map = self.map.clone();
+                let map_row = &mut modified_map[self.position.0];
+                let mut chars: Vec<char> = map_row.chars().collect();
+                chars[self.position.1] = '#';
+                *map_row = chars.into_iter().collect();
+                return Some(modified_map);
+            }
+        }
+    }
 }
 
 pub fn part1() {
@@ -142,27 +160,29 @@ pub fn part1() {
 
 pub fn part2() {
     let map = get_map("src/data/day6.txt".to_string()).expect("REASON");
-    let obstacles: Vec<i32> = Vec::new();
+    let mut obstacles: Vec<i32> = Vec::new();
 
     let maps = Map {
-        map: map,
-        init: (0, 0),
+        map: map.clone(),
+        position: (0, 0),
+        dimension: (map.len(), map[0].chars().count()),
     };
 
     for m in maps {
-        let initial_conditions = find_init_conditions(m);
-        let g = Guard {
-            orientation: initial_conditions.0,
-            position: initial_conditions.1,
-            map,
+        let initial_conditions: (String, (usize, usize)) = find_init_conditions(m).unwrap();
+        let mut g = Guard {
+            orientation: initial_conditions.0.clone(),
+            position: initial_conditions.1.clone(),
+            map: map.clone(),
         };
 
-        for guard_position in g {
+        let initial_orientation = initial_conditions.0.clone();
+        let initial_position = initial_conditions.1.clone();
+
+        for _guard_position in &mut g {
             // If we reach the same position and orientation, we know we are in a loop.
             // If this is discovered, break out of loop over positions into loop for next map.
-            if guard_position.orientation =
-                initial_conditions.0 && guard_position.position = initial_conditions.1
-            {
+            if g.orientation == initial_orientation && g.position == initial_position {
                 obstacles.push(1);
                 break;
             }
