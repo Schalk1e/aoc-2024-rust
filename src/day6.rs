@@ -36,7 +36,7 @@ struct Guard {
 }
 
 impl Guard {
-    fn walk(&mut self) -> Option<(usize, usize)> {
+    fn walk(&mut self) -> Option<(String, (usize, usize))> {
         let dimensions: (usize, usize) = (self.map.len(), self.map[0].chars().count());
         // Calculate move
         if (self.orientation.as_str() == "^" && self.position.0 == 0)
@@ -60,10 +60,10 @@ impl Guard {
             let obstruction = self.map[movement.0].chars().nth(movement.1).unwrap();
             if obstruction == '#' {
                 self.rotate();
-                Some(self.position)
+                Some((self.orientation.clone(), self.position))
             } else {
                 self.position = movement;
-                Some(self.position)
+                Some((self.orientation.clone(), self.position))
             }
         } else {
             None
@@ -83,7 +83,7 @@ impl Guard {
 }
 
 impl Iterator for Guard {
-    type Item = (usize, usize);
+    type Item = (String, (usize, usize));
 
     fn next(&mut self) -> Option<Self::Item> {
         // Return valid progress otherwise None.
@@ -101,11 +101,14 @@ fn unique_positions(positions: Vec<(usize, usize)>) -> i32 {
     unique_positions.len().try_into().unwrap()
 }
 
-fn next_position(position: (usize, usize), dimension: (usize, usize)) -> (usize, usize) {
-    if position.0 < dimension.0 {
-        (position.0, position.1 + 1)
+fn next_position(position: (usize, usize), dimension: (usize, usize)) -> Option<(usize, usize)> {
+    // println!("{:?}, {:?}", position, dimension);
+    if position.1 < dimension.1 - 1 {
+        Some((position.0, position.1 + 1))
+    } else if position.0 < dimension.0 - 1 {
+        Some((position.0 + 1, 0))
     } else {
-        (position.0 + 1, 0)
+        None
     }
 }
 
@@ -120,8 +123,6 @@ impl Iterator for Map {
 
     fn next(&mut self) -> Option<Self::Item> {
         loop {
-            let next_position = next_position(self.position, self.dimension);
-            self.position = next_position;
             if self.map[self.position.0]
                 .chars()
                 .nth(self.position.1)
@@ -133,8 +134,16 @@ impl Iterator for Map {
                 let mut chars: Vec<char> = map_row.chars().collect();
                 chars[self.position.1] = '#';
                 *map_row = chars.into_iter().collect();
+                print!("{:?}", modified_map);
+                let next_position = next_position(self.position, self.dimension);
+                self.position = next_position?;
+                println!("{:?}", next_position);
+
                 return Some(modified_map);
             }
+            let next_position = next_position(self.position, self.dimension);
+            self.position = next_position?;
+            println!("{:?}", next_position);
         }
     }
 }
@@ -151,7 +160,7 @@ pub fn part1() {
     };
 
     for guard_position in g {
-        positions.push(guard_position);
+        positions.push(guard_position.1);
     }
     positions.push(initial_conditions.1);
 
@@ -169,20 +178,24 @@ pub fn part2() {
     };
 
     for m in maps {
-        let initial_conditions: (String, (usize, usize)) = find_init_conditions(m).unwrap();
-        let mut g = Guard {
+        let initial_conditions: (String, (usize, usize)) = find_init_conditions(m.clone()).unwrap();
+        let g = Guard {
             orientation: initial_conditions.0.clone(),
-            position: initial_conditions.1.clone(),
-            map: map.clone(),
+            position: initial_conditions.1,
+            map: m,
         };
 
         let initial_orientation = initial_conditions.0.clone();
-        let initial_position = initial_conditions.1.clone();
+        let initial_position = initial_conditions.1;
 
-        for _guard_position in &mut g {
+        for guard_position in g {
             // If we reach the same position and orientation, we know we are in a loop.
             // If this is discovered, break out of loop over positions into loop for next map.
-            if g.orientation == initial_orientation && g.position == initial_position {
+            println!(
+                "{:?},{:?}:{:?},{:?}",
+                guard_position.0, guard_position.1, initial_orientation, initial_position
+            );
+            if guard_position.0 == initial_orientation && guard_position.1 == initial_position {
                 obstacles.push(1);
                 break;
             }
