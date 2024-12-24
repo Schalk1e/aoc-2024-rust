@@ -101,8 +101,9 @@ fn unique_positions(positions: Vec<(usize, usize)>) -> i32 {
     unique_positions.len().try_into().unwrap()
 }
 
+#[allow(dead_code)]
 fn next_position(position: (usize, usize), dimension: (usize, usize)) -> Option<(usize, usize)> {
-    // println!("{:?}, {:?}", position, dimension);
+    println!("{:?}", position);
     if position.1 < dimension.1 - 1 {
         Some((position.0, position.1 + 1))
     } else if position.0 < dimension.0 - 1 {
@@ -112,6 +113,7 @@ fn next_position(position: (usize, usize), dimension: (usize, usize)) -> Option<
     }
 }
 
+#[allow(dead_code)]
 struct Map {
     map: Vec<String>,
     position: (usize, usize),
@@ -134,16 +136,13 @@ impl Iterator for Map {
                 let mut chars: Vec<char> = map_row.chars().collect();
                 chars[self.position.1] = '#';
                 *map_row = chars.into_iter().collect();
-                print!("{:?}", modified_map);
                 let next_position = next_position(self.position, self.dimension);
                 self.position = next_position?;
-                println!("{:?}", next_position);
 
                 return Some(modified_map);
             }
             let next_position = next_position(self.position, self.dimension);
             self.position = next_position?;
-            println!("{:?}", next_position);
         }
     }
 }
@@ -167,6 +166,7 @@ pub fn part1() {
     println!("Part 1: {:?}", unique_positions(positions));
 }
 
+#[allow(dead_code)]
 pub fn part2() {
     let map = get_map("src/data/day6.txt".to_string()).expect("REASON");
     let mut obstacles: Vec<i32> = Vec::new();
@@ -185,19 +185,14 @@ pub fn part2() {
             map: m,
         };
 
-        let initial_orientation = initial_conditions.0.clone();
-        let initial_position = initial_conditions.1;
+        let mut unique_positions: Vec<(String, (usize, usize))> = Vec::new();
 
         for guard_position in g {
-            // If we reach the same position and orientation, we know we are in a loop.
-            // If this is discovered, break out of loop over positions into loop for next map.
-            println!(
-                "{:?},{:?}:{:?},{:?}",
-                guard_position.0, guard_position.1, initial_orientation, initial_position
-            );
-            if guard_position.0 == initial_orientation && guard_position.1 == initial_position {
+            if unique_positions.contains(&guard_position) {
                 obstacles.push(1);
                 break;
+            } else {
+                unique_positions.push(guard_position);
             }
         }
     }

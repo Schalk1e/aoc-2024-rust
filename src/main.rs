@@ -24,5 +24,6 @@ fn main() {
     day5::part2();
     println!("\nDay 6\n-----\n");
     day6::part1();
-    day6::part2();
+    // day6::part2();
+    println!("Part 2: This takes a long time to run! It's brute force.");
 }
