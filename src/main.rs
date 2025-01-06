@@ -4,6 +4,7 @@ mod day3;
 mod day4;
 mod day5;
 mod day6;
+mod day7;
 
 fn main() {
     println!("\nDay 1\n-----\n");
@@ -26,4 +27,6 @@ fn main() {
     day6::part1();
     // day6::part2();
     println!("Part 2: This takes a long time to run! It's brute force.");
+    println!("\nDay 7\n-----\n");
+    day7::part1();
 }
