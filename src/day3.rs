@@ -59,6 +59,7 @@ pub fn part1() {
 
 // Edited the file with emacs to remove all the don't's :) Bit of a hack
 // to check how far off I am.
+#[allow(dead_code)]
 pub fn part2_edit() {
     let input = fs::read_to_string("src/data/day3_edited.txt");
     let patterns = extract_mul_patterns(input.expect("REASON"));

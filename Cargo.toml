@@ -4,7 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+clap = { version = "4.5.32", features = ["derive"] }
 itertools = "0.14.0"
+markdown-table-formatter = "0.3.0"
 num-traits = "0.2.19"
 regex = "1.11.1"
 signum = "0.2.1"

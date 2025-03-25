@@ -103,7 +103,6 @@ fn unique_positions(positions: Vec<(usize, usize)>) -> i32 {
 
 #[allow(dead_code)]
 fn next_position(position: (usize, usize), dimension: (usize, usize)) -> Option<(usize, usize)> {
-    println!("{:?}", position);
     if position.1 < dimension.1 - 1 {
         Some((position.0, position.1 + 1))
     } else if position.0 < dimension.0 - 1 {

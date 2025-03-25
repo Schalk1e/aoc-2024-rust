@@ -68,8 +68,6 @@ fn checksum(moved_blocks: String) -> usize {
 pub fn part1() {
     let input = input("src/data/day9.txt".to_string()).expect("REASON");
 
-    println!("{:?}", input);
-
     let blocks = file_blocks(input);
 
     let moved_blocks = move_blocks(blocks);

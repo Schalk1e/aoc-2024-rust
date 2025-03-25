@@ -90,7 +90,6 @@ pub fn part1() {
 
     let mut antinodes_in_area: Vec<(i32, i32)> = Vec::new();
     for antenna_pair in filtered_pairs {
-        let pair = antenna_pair.clone();
         let antinode = find_antinode(2, antenna_pair);
         if antinode.0 >= 0
             && antinode.0 <= map_dimension
@@ -117,7 +116,6 @@ pub fn part2() {
 
     let mut antinodes_in_area: Vec<(i32, i32)> = Vec::new();
     for antenna_pair in filtered_pairs {
-        let pair = antenna_pair.clone();
         let antinodes = find_antinodes(map_dimension, antenna_pair);
         for antinode in antinodes {
             if antinode.0 >= 0
