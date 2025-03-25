@@ -123,7 +123,7 @@ fn make_crossword_matrix(path: String) -> io::Result<Vec<Vec<char>>> {
     Ok(matrix)
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i32 {
     let matrix = make_crossword_matrix("src/data/day4.txt".to_string());
 
     let m = matrix.unwrap();
@@ -145,10 +145,14 @@ pub fn part1() {
 
     let result: i32 = matches.iter().sum();
 
-    println!("Part 1: {}", result);
+    if !no_print {
+        println!("Part 1: {}", result);
+    }
+
+    result
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i32 {
     let matrix = make_crossword_matrix("src/data/day4_pt2.txt".to_string());
 
     let m = matrix.unwrap();
@@ -167,5 +171,9 @@ pub fn part2() {
 
     let result: i32 = matches.iter().sum();
 
-    println!("Part 2: {}", result);
+    if !no_print {
+        println!("Part 2: {}", result);
+    }
+
+    result
 }

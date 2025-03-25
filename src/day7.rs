@@ -134,7 +134,7 @@ fn calculate_ternary_result(ternary_string: String, terms: Vec<i64>) -> i64 {
     result
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i64 {
     let mut sums: Vec<i64> = Vec::new();
 
     let equations = input("src/data/day7.txt".to_string());
@@ -164,10 +164,14 @@ pub fn part1() {
 
     let result: i64 = sums.iter().sum();
 
-    println!("Part 1: {:?}", result);
+    if !no_print {
+        println!("Part 1: {:?}", result);
+    }
+
+    result
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i64 {
     let mut sums: Vec<i64> = Vec::new();
 
     let equations = input("src/data/day7.txt".to_string());
@@ -196,5 +200,9 @@ pub fn part2() {
 
     let result: i64 = sums.iter().sum();
 
-    println!("Part 2: {:?}", result);
+    if !no_print {
+        println!("Part 2: {:?}", result);
+    }
+
+    result
 }

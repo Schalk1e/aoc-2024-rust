@@ -146,7 +146,7 @@ impl Iterator for Map {
     }
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i32 {
     let map = get_map("src/data/day6.txt".to_string()).expect("REASON");
     let initial_conditions = find_init_conditions(map.clone()).unwrap();
     let mut positions: Vec<(usize, usize)> = Vec::new();
@@ -162,11 +162,17 @@ pub fn part1() {
     }
     positions.push(initial_conditions.1);
 
-    println!("Part 1: {:?}", unique_positions(positions));
+    let result = unique_positions(positions);
+
+    if !no_print {
+        println!("Part 1: {:?}", result);
+    }
+
+    result
 }
 
 #[allow(dead_code)]
-pub fn part2() {
+pub fn part2(no_print: bool) -> i32 {
     let map = get_map("src/data/day6.txt".to_string()).expect("REASON");
     let mut obstacles: Vec<i32> = Vec::new();
 
@@ -198,5 +204,9 @@ pub fn part2() {
 
     let result: i32 = obstacles.iter().sum();
 
-    println!("Part 2: {:?}", result);
+    if !no_print {
+        println!("Part 2: {:?}", result);
+    }
+
+    result
 }

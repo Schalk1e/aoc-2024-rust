@@ -157,7 +157,7 @@ pub fn part1(no_print: bool) -> i32 {
     result
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i32 {
     let rules = get_rules("src/data/day5_rules.txt".to_string()).expect("REASON");
     let updates = get_updates("src/data/day5_updates.txt".to_string());
     let mut values_to_sum: Vec<i32> = Vec::new();
@@ -175,5 +175,9 @@ pub fn part2() {
     let result: i32 = values_to_sum.iter().sum();
     let part1: i32 = part1(true);
 
-    println!("Part 2: {:?}", result - part1);
+    if !no_print {
+        println!("Part 2: {:?}", result - part1);
+    }
+
+    result - part1
 }

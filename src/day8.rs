@@ -80,7 +80,7 @@ fn find_antinodes(max_constant: i32, antenna_pair: Vec<(usize, usize)>) -> Vec<(
     antinodes
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i32 {
     let map = input("src/data/day8.txt".to_string()).expect("REASON");
     let map_dimension: i32 = (map.len() - 1).try_into().unwrap();
 
@@ -103,10 +103,14 @@ pub fn part1() {
 
     let counts: i32 = antinodes_in_area.len().try_into().unwrap();
 
-    println!("Part 1: {:?}", counts);
+    if !no_print {
+        println!("Part 1: {:?}", counts);
+    }
+
+    counts
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i32 {
     let map = input("src/data/day8.txt".to_string()).expect("REASON");
     let map_dimension: i32 = (map.len() - 1).try_into().unwrap();
 
@@ -131,5 +135,9 @@ pub fn part2() {
 
     let counts: i32 = antinodes_in_area.len().try_into().unwrap();
 
-    println!("Part 2: {:?}", counts);
+    if !no_print {
+        println!("Part 2: {:?}", counts);
+    }
+
+    counts
 }
