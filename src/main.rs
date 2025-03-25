@@ -84,19 +84,23 @@ fn main() {
             }
         },
         Some(Commands::Table {}) => {
+            println!(
+                "{}",
+                "NOTE: Day 6, Part 2 takes a while... Excluding from table for now."
+            );
             let data = vec![
                 vec![day1::part1(true), day1::part2(true)],
                 vec![day2::part1(true), day2::part2(true)],
                 vec![day3::part1(true), day3::part2(true)],
                 vec![day4::part1(true), day4::part2(true)],
                 vec![day5::part1(true), day5::part2(true)],
-                vec![day6::part1(true), day6::part2(true)],
-                vec![
-                    day7::part1(true).try_into().unwrap(),
-                    day7::part2(true).try_into().unwrap(),
-                ],
+                vec![day6::part1(true), 123],
+                // vec![
+                //     day7::part1(true).try_into().unwrap(),
+                //     day7::part2(true).try_into().unwrap(),
+                // ],
                 vec![day8::part1(true), day8::part2(true)],
-                vec![day9::part1(true).try_into().unwrap()],
+                // vec![day9::part1(true).try_into().unwrap()],
             ];
             let mut table = String::from("| Day | Part 1 | Part 2 |\n| :-- | :--: | --: |\n");
 
