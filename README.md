@@ -11,7 +11,7 @@
 https://adventofcode.com/2024
 
 <details>
-  <summary>Click to reveal the secret table...</summary>
+  <summary>Click to reveal the secret table of answers...</summary>
   <br>
 
 | Day  |    Part 1    |          Part 2 |
