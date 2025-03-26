@@ -57,17 +57,15 @@ fn binary_number_generator(bits: usize) -> Vec<String> {
 }
 
 fn calculate_binary_result(binary_string: String, terms: Vec<i64>) -> i64 {
-    let mut init: usize = 0;
     let mut result: i64 = terms[0];
 
-    for s in binary_string.chars() {
+    for (init, s) in binary_string.chars().enumerate() {
         if s == '0' {
             // Equivalent to result = result + terms[init + 1]
             result += terms[init + 1];
         } else {
             result *= terms[init + 1];
         }
-        init += 1;
     }
 
     result
@@ -114,10 +112,9 @@ fn ternary_number_generator(positions: usize) -> Vec<String> {
 
 #[allow(dead_code)]
 fn calculate_ternary_result(ternary_string: String, terms: Vec<i64>) -> i64 {
-    let mut init: usize = 0;
     let mut result: i64 = terms[0];
 
-    for s in ternary_string.chars() {
+    for (init, s) in ternary_string.chars().enumerate() {
         if s == '0' {
             result += terms[init + 1];
         } else if s == '1' {
@@ -127,8 +124,6 @@ fn calculate_ternary_result(ternary_string: String, terms: Vec<i64>) -> i64 {
             let concatenated_integer = concatenated.parse::<i64>().expect("REASON");
             result = concatenated_integer
         }
-
-        init += 1;
     }
 
     result
