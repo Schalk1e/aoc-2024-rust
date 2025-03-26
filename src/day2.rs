@@ -114,7 +114,7 @@ impl Iterator for Reports {
 }
 
 // Loop over reports to check each one for success or failure..
-pub fn part1(no_print: bool) -> i32 {
+pub fn part1(no_print: bool) -> i64 {
     let input = process("src/data/day2.txt".to_string());
     let mut ind: Vec<i32> = Vec::new();
 
@@ -124,7 +124,7 @@ pub fn part1(no_print: bool) -> i32 {
         ind.push(success_or_fail(report));
     }
 
-    let result: i32 = ind.iter().sum();
+    let result: i64 = ind.iter().sum::<i32>() as i64;
 
     if !no_print {
         println!("Part 1: {}", result);
@@ -134,7 +134,7 @@ pub fn part1(no_print: bool) -> i32 {
 }
 
 // Loop over reports to check which ones have 1 or less violations..
-pub fn part2(no_print: bool) -> i32 {
+pub fn part2(no_print: bool) -> i64 {
     let input = process("src/data/day2.txt".to_string());
     let mut ind: Vec<i32> = Vec::new();
 
@@ -172,7 +172,7 @@ pub fn part2(no_print: bool) -> i32 {
         ind.push(safe);
     }
 
-    let result: i32 = ind.iter().sum();
+    let result: i64 = ind.iter().sum::<i32>() as i64;
 
     if !no_print {
         println!("Part 2: {}", result);

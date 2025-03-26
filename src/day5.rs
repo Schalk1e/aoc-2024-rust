@@ -135,7 +135,7 @@ fn filter_rules(updates: &[i32], rules: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
 }
 
 // Rust doesn't support default args... Interesting.
-pub fn part1(no_print: bool) -> i32 {
+pub fn part1(no_print: bool) -> i64 {
     let rules = get_rules("src/data/day5_rules.txt".to_string()).expect("REASON");
     let updates = get_updates("src/data/day5_updates.txt".to_string());
     let mut values_to_sum: Vec<i32> = Vec::new();
@@ -148,7 +148,7 @@ pub fn part1(no_print: bool) -> i32 {
         values_to_sum.push(get_value_to_sum(sorted_rules.clone(), u));
     }
 
-    let result: i32 = values_to_sum.iter().sum();
+    let result: i64 = values_to_sum.iter().sum::<i32>() as i64;
 
     if !no_print {
         println!("Part 1: {:?}", result);
@@ -157,7 +157,7 @@ pub fn part1(no_print: bool) -> i32 {
     result
 }
 
-pub fn part2(no_print: bool) -> i32 {
+pub fn part2(no_print: bool) -> i64 {
     let rules = get_rules("src/data/day5_rules.txt".to_string()).expect("REASON");
     let updates = get_updates("src/data/day5_updates.txt".to_string());
     let mut values_to_sum: Vec<i32> = Vec::new();
@@ -172,8 +172,8 @@ pub fn part2(no_print: bool) -> i32 {
         values_to_sum.push(index_value);
     }
 
-    let result: i32 = values_to_sum.iter().sum();
-    let part1: i32 = part1(true);
+    let result: i64 = values_to_sum.iter().sum::<i32>() as i64;
+    let part1: i64 = part1(true);
 
     if !no_print {
         println!("Part 2: {:?}", result - part1);

@@ -84,23 +84,17 @@ fn main() {
             }
         },
         Some(Commands::Table {}) => {
-            println!(
-                "{}",
-                "NOTE: Day 6, Part 2 takes a while... Excluding from table for now."
-            );
-            let data = vec![
+            println!("NOTE: Day 6, Part 2 takes a while... Excluding from table for now.");
+            let data = [
                 vec![day1::part1(true), day1::part2(true)],
                 vec![day2::part1(true), day2::part2(true)],
                 vec![day3::part1(true), day3::part2(true)],
                 vec![day4::part1(true), day4::part2(true)],
                 vec![day5::part1(true), day5::part2(true)],
                 vec![day6::part1(true), 123],
-                // vec![
-                //     day7::part1(true).try_into().unwrap(),
-                //     day7::part2(true).try_into().unwrap(),
-                // ],
+                vec![day7::part1(true), day7::part2(true)],
                 vec![day8::part1(true), day8::part2(true)],
-                // vec![day9::part1(true).try_into().unwrap()],
+                vec![day9::part1(true)],
             ];
             let mut table = String::from("| Day | Part 1 | Part 2 |\n| :-- | :--: | --: |\n");
 
@@ -108,7 +102,10 @@ fn main() {
                 if values.len() == 2 {
                     table.push_str(&format!(
                         "|  {}  |   {}   |   {}   |\n",
-                        day, values[0], values[1]
+                        // Index 0 is day 1...
+                        day + 1,
+                        values[0],
+                        values[1]
                     ))
                 } else {
                     table.push_str(&format!("|  {}  |   ?   |   ?   |\n", day + 1));

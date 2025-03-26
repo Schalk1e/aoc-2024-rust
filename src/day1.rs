@@ -30,7 +30,7 @@ fn process(path: String) -> Result<Vec<Vec<String>>, Box<dyn Error>> {
 // Part 1
 
 // calculate the difference between each pair of numbers in input.txt
-pub fn part1(no_print: bool) -> i32 {
+pub fn part1(no_print: bool) -> i64 {
     let mut diffs: std::vec::Vec<i32> = Vec::new();
 
     let input = process("src/data/day1.txt".to_string());
@@ -45,7 +45,7 @@ pub fn part1(no_print: bool) -> i32 {
         // diffs.push(d);
     }
 
-    let result: i32 = diffs.iter().sum();
+    let result: i64 = diffs.iter().sum::<i32>() as i64;
 
     if !no_print {
         println!("Part 1: {}", result);
@@ -56,7 +56,7 @@ pub fn part1(no_print: bool) -> i32 {
 
 // Part 2
 
-pub fn part2(no_print: bool) -> i32 {
+pub fn part2(no_print: bool) -> i64 {
     let input = process("src/data/day1.txt".to_string());
     let binding = input.unwrap();
     let mut frequencies = Vec::new();
@@ -73,7 +73,7 @@ pub fn part2(no_print: bool) -> i32 {
         frequencies.push(id.parse::<i32>().unwrap() * frequency)
     }
 
-    let result: i32 = frequencies.iter().sum();
+    let result: i64 = frequencies.iter().sum::<i32>() as i64;
 
     if !no_print {
         println!("Part 2: {}", result);
