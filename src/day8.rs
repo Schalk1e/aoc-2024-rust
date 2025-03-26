@@ -80,7 +80,7 @@ fn find_antinodes(max_constant: i32, antenna_pair: Vec<(usize, usize)>) -> Vec<(
     antinodes
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i64 {
     let map = input("src/data/day8.txt".to_string()).expect("REASON");
     let map_dimension: i32 = (map.len() - 1).try_into().unwrap();
 
@@ -90,7 +90,6 @@ pub fn part1() {
 
     let mut antinodes_in_area: Vec<(i32, i32)> = Vec::new();
     for antenna_pair in filtered_pairs {
-        let pair = antenna_pair.clone();
         let antinode = find_antinode(2, antenna_pair);
         if antinode.0 >= 0
             && antinode.0 <= map_dimension
@@ -102,12 +101,16 @@ pub fn part1() {
         }
     }
 
-    let counts: i32 = antinodes_in_area.len().try_into().unwrap();
+    let counts: i64 = antinodes_in_area.len().try_into().unwrap();
 
-    println!("Part 1: {:?}", counts);
+    if !no_print {
+        println!("Part 1: {:?}", counts);
+    }
+
+    counts
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i64 {
     let map = input("src/data/day8.txt".to_string()).expect("REASON");
     let map_dimension: i32 = (map.len() - 1).try_into().unwrap();
 
@@ -117,7 +120,6 @@ pub fn part2() {
 
     let mut antinodes_in_area: Vec<(i32, i32)> = Vec::new();
     for antenna_pair in filtered_pairs {
-        let pair = antenna_pair.clone();
         let antinodes = find_antinodes(map_dimension, antenna_pair);
         for antinode in antinodes {
             if antinode.0 >= 0
@@ -131,7 +133,11 @@ pub fn part2() {
         }
     }
 
-    let counts: i32 = antinodes_in_area.len().try_into().unwrap();
+    let counts: i64 = antinodes_in_area.len().try_into().unwrap();
 
-    println!("Part 2: {:?}", counts);
+    if !no_print {
+        println!("Part 2: {:?}", counts);
+    }
+
+    counts
 }

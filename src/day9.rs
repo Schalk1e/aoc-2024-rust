@@ -65,16 +65,18 @@ fn checksum(moved_blocks: String) -> usize {
     elements.iter().sum()
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i64 {
     let input = input("src/data/day9.txt".to_string()).expect("REASON");
-
-    println!("{:?}", input);
 
     let blocks = file_blocks(input);
 
     let moved_blocks = move_blocks(blocks);
 
-    let csum = checksum(moved_blocks);
+    let csum: i64 = checksum(moved_blocks).try_into().unwrap();
 
-    println!("Part 1: {:?}", csum);
+    if !no_print {
+        println!("Part 1: {:?}", csum);
+    }
+
+    csum
 }

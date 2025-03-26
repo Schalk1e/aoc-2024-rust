@@ -73,6 +73,7 @@ fn calculate_binary_result(binary_string: String, terms: Vec<i64>) -> i64 {
     result
 }
 
+#[allow(dead_code)]
 fn base_n_string(mut number: usize, base: usize) -> String {
     assert!(base >= 2, "Base must be at least 2");
 
@@ -96,6 +97,7 @@ fn base_n_string(mut number: usize, base: usize) -> String {
     result.chars().rev().collect()
 }
 
+#[allow(dead_code)]
 fn ternary_number_generator(positions: usize) -> Vec<String> {
     let mut permutations = Vec::new();
 
@@ -110,6 +112,7 @@ fn ternary_number_generator(positions: usize) -> Vec<String> {
     permutations
 }
 
+#[allow(dead_code)]
 fn calculate_ternary_result(ternary_string: String, terms: Vec<i64>) -> i64 {
     let mut init: usize = 0;
     let mut result: i64 = terms[0];
@@ -131,7 +134,7 @@ fn calculate_ternary_result(ternary_string: String, terms: Vec<i64>) -> i64 {
     result
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i64 {
     let mut sums: Vec<i64> = Vec::new();
 
     let equations = input("src/data/day7.txt".to_string());
@@ -161,10 +164,14 @@ pub fn part1() {
 
     let result: i64 = sums.iter().sum();
 
-    println!("Part 1: {:?}", result);
+    if !no_print {
+        println!("Part 1: {:?}", result);
+    }
+
+    result
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i64 {
     let mut sums: Vec<i64> = Vec::new();
 
     let equations = input("src/data/day7.txt".to_string());
@@ -193,5 +200,9 @@ pub fn part2() {
 
     let result: i64 = sums.iter().sum();
 
-    println!("Part 2: {:?}", result);
+    if !no_print {
+        println!("Part 2: {:?}", result);
+    }
+
+    result
 }

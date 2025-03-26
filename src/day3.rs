@@ -42,7 +42,7 @@ fn extract_do_mul_patterns(input: String) -> Vec<String> {
     results
 }
 
-pub fn part1() {
+pub fn part1(no_print: bool) -> i64 {
     let input = fs::read_to_string("src/data/day3.txt");
     let patterns = extract_mul_patterns(input.expect("REASON"));
 
@@ -52,13 +52,18 @@ pub fn part1() {
         sums.push(multiply_from_mul_pattern(pattern));
     }
 
-    let result: i32 = sums.iter().sum();
+    let result: i64 = sums.iter().sum::<i32>() as i64;
 
-    println!("Part 1: {}", result);
+    if !no_print {
+        println!("Part 1: {}", result);
+    }
+
+    result
 }
 
 // Edited the file with emacs to remove all the don't's :) Bit of a hack
 // to check how far off I am.
+#[allow(dead_code)]
 pub fn part2_edit() {
     let input = fs::read_to_string("src/data/day3_edited.txt");
     let patterns = extract_mul_patterns(input.expect("REASON"));
@@ -77,7 +82,7 @@ pub fn part2_edit() {
     );
 }
 
-pub fn part2() {
+pub fn part2(no_print: bool) -> i64 {
     let input = fs::read_to_string("src/data/day3.txt");
     let patterns: Vec<String> =
         extract_mul_patterns(extract_do_mul_patterns(input.expect("REASON")).join(""));
@@ -88,7 +93,11 @@ pub fn part2() {
         sums.push(multiply_from_mul_pattern(pattern));
     }
 
-    let result: i32 = sums.iter().sum();
+    let result: i64 = sums.iter().sum::<i32>() as i64;
 
-    println!("Part 1: {}", result);
+    if !no_print {
+        println!("Part 1: {}", result);
+    }
+
+    result
 }
