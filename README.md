@@ -1,5 +1,11 @@
 # aoc-2024-rust
 
+<div align="left">
+  <p>
+    <img src="https://github.com/Schalk1e/aoc-2024-rust/workflows/continuous-integration/badge.svg" width="250" />
+  </p>
+</div>
+
 (Hacky) Rust code for the 2024 Advent of Code event!
 
 https://adventofcode.com/2024
