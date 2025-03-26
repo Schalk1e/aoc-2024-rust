@@ -1,6 +1,8 @@
 # aoc-2024-rust
 
-(Hacky) Rust code for the 2024 Advent of Code event! No peaking! ;)
+(Hacky) Rust code for the 2024 Advent of Code event!
+
+https://adventofcode.com/2024
 
 <details>
   <summary>Click to reveal the secret table...</summary>
@@ -13,11 +15,13 @@
 | 3    |  173731097   |        81292334 |
 | 4    |     2336     |            1831 |
 | 5    |     4766     |            6257 |
-| 6    |     4826     |             123 |
+| 6    |     4826     |             *** |
 | 7    | 932137732557 | 661823605105500 |
 | 8    |     359      |            1293 |
 | 9    |      ?       |               ? |
 
-_*** This takes a while to run. Redacted for now._
+_*** - This takes a while to run. Redacted for now._
+<br>
+_? - Still a work in progress_
 
 </details>
